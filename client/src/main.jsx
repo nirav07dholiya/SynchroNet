@@ -10,3 +10,5 @@ createRoot(document.getElementById('root')).render(
     <Toaster richColors closeButton />
   </>
 )
+
+// npm install; npm run build; npm install framer-motion; npm install react-intersection-observer; npm install react-player;

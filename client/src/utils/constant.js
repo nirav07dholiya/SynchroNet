@@ -1,4 +1,5 @@
-export const HOST = `http://localhost:8747`
+export const HOST = import.meta.env.VITE_BACKEND_URL;
+console.log({HOST});
 
 export const AUTH_ROUTE =  `/api/auth`
 export const SIGN_UP_ROUTE = `${AUTH_ROUTE}/sign-up`

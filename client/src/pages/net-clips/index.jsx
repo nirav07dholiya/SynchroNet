@@ -1,14 +1,12 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect } from 'react'
 import Header from '@/assets/Header'
 import Navbar from '@/assets/Navbar'
-import { ScrollArea } from '@/components/ui/scroll-area'
 import { apiClient } from '@/lib/api-client'
 import useAppStore from '@/store'
 import { GET_RANDOM_NETCLIPS } from '@/utils/constant'
 import NetClip from '@/assets/NetClip'
 import NetClipHeader from '@/assets/NetClipHeader'
 import NetClipFooter from '@/assets/NetClipFooter'
-import { io } from 'socket.io-client'
 
 const NetClips = () => {
 
