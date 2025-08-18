@@ -38,10 +38,7 @@ app.use("/api/saved", saveRouter);
 app.use("/api/connection", connectionRouter);
 
 // ✅ Connect DB first, then start server
-mongoose.connect(databaseURL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}).then(() => {
+mongoose.connect(databaseURL).then(() => {
     console.log("✅ Database connected successfully.");
 
     const server = app.listen(port, () => {
