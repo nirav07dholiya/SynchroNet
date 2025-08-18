@@ -1,5 +1,5 @@
-const express = require('express')
-const mongoose = require('mongoose')
+const express = require('express');
+const mongoose = require('mongoose');
 const dotenv = require("dotenv");
 const cookieParser = require('cookie-parser');
 const cors = require("cors");
@@ -16,35 +16,42 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3001;
 const databaseURL = process.env.MONGO_URI;
-console.log({databaseURL});
+console.log("MONGO_URI =>", databaseURL);
 
 app.use(cors({
     origin: [process.env.ORIGIN],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
-}))
+}));
 
-app.use('/uploads/profiles', express.static('uploads/profiles'))
-app.use('/uploads/posts', express.static('uploads/posts'))
-// app.use('/uploads/files',express.static("uploads/files"))
+app.use('/uploads/profiles', express.static('uploads/profiles'));
+app.use('/uploads/posts', express.static('uploads/posts'));
 
 app.use(cookieParser());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/api/auth", apiRouter)
-app.use("/api/post", postRouter)
-app.use("/api/search", searchRouter)
-app.use("/api/saved", saveRouter)
-app.use("/api/connection", connectionRouter)
+app.use("/api/auth", apiRouter);
+app.use("/api/post", postRouter);
+app.use("/api/search", searchRouter);
+app.use("/api/saved", saveRouter);
+app.use("/api/connection", connectionRouter);
 
-const server = app.listen(port, () => {
-    mongoose.connect(databaseURL).then(() => {
-        console.log("Database connect successfully.")
-    }).catch((err) => {
-        console.log("Database Error: ", err);
-    })
-    console.log(`Server is running at http://localhost:${port}`);
-})
+// ✅ Connect DB first, then start server
+mongoose.connect(databaseURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then(() => {
+    console.log("✅ Database connected successfully.");
 
-setUpSocket(server)
+    const server = app.listen(port, () => {
+        console.log(`🚀 Server is running at http://localhost:${port}`);
+    });
+
+    // setup socket after server starts
+    setUpSocket(server);
+
+}).catch((err) => {
+    console.error("❌ Database connection error:", err.message);
+    process.exit(1); // stop app if DB fails
+});
