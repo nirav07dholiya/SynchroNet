@@ -136,10 +136,10 @@ const removeProfileImage = async (req, res) => {
 
 const setProfile = async (req, res) => {
   try {
-    const { username, name, bio } = req.body;
+    const { username, name, bio, idType } = req.body;
     const user = await User.findByIdAndUpdate(
       req.userId,
-      { username, name, bio, profileSetUp: true },
+      { username, name, bio,idType, profileSetUp: true },
       { new: true, runValidators: true }
     );
 
