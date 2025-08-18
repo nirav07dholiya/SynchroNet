@@ -11,11 +11,11 @@ const createToken = (email, id) => {
 
 const signUp = async (req, res) => {
   try {
-    const { email, password, idType } = req.body;
+    const { email, password } = req.body;
     if (!email || !password)
       return res.status(400).send("Email and Password is required.");
 
-    const user = await User.create({ email, password, idType });
+    const user = await User.create({ email, password });
     const cookie = createToken(email, user.id);
 
     res.cookie("jwt", cookie, {
