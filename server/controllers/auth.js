@@ -16,9 +16,9 @@ const signUp = async (req, res) => {
       return res.status(400).send("Email and Password is required.");
 
     const user = await User.create({ email, password });
-    const cookie = createToken(email, user.id);
+    const token = createToken(email, user.id);
 
-    res.cookie("jwt", cookie, {
+    res.cookie("jwt", token, {
       httpOnly: true,       // prevents JS access
       secure: true,         // required for HTTPS on Render
       sameSite: "None",     // allows cross-site cookies
@@ -50,8 +50,8 @@ const login = async (req, res) => {
     const auth = await bcrypt.compare(password, user.password);
     if (!auth) return res.json({ error: "Password missmatch." });
 
-    const cookie = createToken(email, user.id);
-    res.cookie("jwt", cookie, {
+    const token = createToken(email, user.id);
+    res.cookie("jwt", token, {
   httpOnly: true,       // prevents JS access
   secure: true,         // required for HTTPS on Render
   sameSite: "None",     // allows cross-site cookies
