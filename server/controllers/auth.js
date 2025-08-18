@@ -50,10 +50,11 @@ const login = async (req, res) => {
 
     const cookie = createToken(email, user.id);
     res.cookie("jwt", cookie, {
-      maxAge,
-      secure: true,
-      sameSite: "None",
-    });
+  httpOnly: true,       // prevents JS access
+  secure: true,         // required for HTTPS on Render
+  sameSite: "None",     // allows cross-site cookies
+  maxAge,
+});
 
     return res.status(200).json({
       user: {
