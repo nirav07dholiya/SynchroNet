@@ -10,6 +10,8 @@ import { apiClient } from "@/lib/api-client";
 import { GET_USER_INFO_BY_POSTID } from "@/utils/constant";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Default from "../assets/images/default-user.png"
+import { HOST } from "@/utils/constant";
 
 const Like = (props) => {
   const { setOpenIdData, openIdData, userInfo } = useAppStore();
@@ -53,7 +55,7 @@ const Like = (props) => {
                     key={props.id}>
                     <div className=" w-9 h-9 rounded-full">
                       <img
-                        src={`http://localhost:8747/${data.DP}`}
+                        src={data.DP ? `${HOST}${data.DP}` : Default}
                         alt=""
                         className="w-full h-full object-cover rounded-full"
                       />

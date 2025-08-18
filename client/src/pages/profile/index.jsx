@@ -46,11 +46,12 @@ import Comment from "@/assets/Comment";
 import Like from "@/assets/Like";
 import Followings from "@/assets/Followings";
 import Followers from "@/assets/Followers";
+import { HOST } from "@/utils/constant";
 
 const Profile = () => {
   const socket = useMemo(
     () =>
-      io("ws://localhost:8747", {
+      io(HOST, {
         transports: ["websocket", "polling", "flashsocket"],
         withCredentials: true,
       }),
@@ -69,6 +70,7 @@ const Profile = () => {
   const [hovered, setHovered] = useState(false);
   const [DP, setDP] = useState(null);
   const [username, setUsername] = useState("");
+  const [idType, setIdType] = useState("public");
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
   const [post, setPost] = useState("");
@@ -113,10 +115,11 @@ const Profile = () => {
         setUsername(response.data.user.username);
         setName(response.data.user.name);
         setBio(response.data.user.bio);
+        setIdType(response.data.user.idType)
       }
     };
     fetchData();
-    if (userInfo.DP) setDP(`http://localhost:8747/${userInfo.DP}`);
+    if (userInfo.DP) setDP(`${HOST}${userInfo.DP}`);
   }, [userInfo, setUserInfo]);
 
   const logOut = async () => {
@@ -258,7 +261,7 @@ const Profile = () => {
         toast.error("Username and Name is required.");
         return false;
       }
-      const data = { username, name, bio };
+      const data = { username, name, bio, idType };
       const response = await apiClient.post(SET_PROFILE_ROUTE, data, {
         withCredentials: true,
       });
@@ -267,6 +270,8 @@ const Profile = () => {
           ...userInfo,
           username: username,
           name: name,
+          bio:bio,
+          idType:idType,
           profileSetUp: true,
         });
         toast.success("Profile updated successfully.");
@@ -289,6 +294,10 @@ const Profile = () => {
       window.location.reload(false);
     }
   };
+
+  const handleChange = (e) => {
+    setIdType(e.target.value)
+  }
 
   return (
     <>
@@ -328,19 +337,11 @@ const Profile = () => {
                   onMouseLeave={() => setHovered(false)}
                 >
                   <Avatar className=" h-[90px] w-[90px] lg:h-[110px] lg:w-[110px]">
-                    {DP ? (
-                      <AvatarImage
-                        src={DP}
-                        alt="profile"
-                        className="object-cover w-full h-full bg-black  dark:bg-white/70"
-                      />
-                    ) : (
-                      <AvatarImage
-                        src={Default}
-                        alt="profile"
-                        className="object-cover w-full h-full bg-black dark:bg-white/70"
-                      />
-                    )}
+                    <AvatarImage
+                      src={DP ? DP : Default}
+                      alt="profile"
+                      className="object-cover w-full h-full bg-black  dark:bg-white/70"
+                    />
                   </Avatar>
                   {hovered && (
                     <div
@@ -462,6 +463,42 @@ const Profile = () => {
                               onChange={(e) => setBio(e.target.value)}
                             />
                           </div>
+                          <div className="flex gap-4 ">
+                            <div class="flex items-center">
+                              <input
+                                id="default-radio-2"
+                                type="radio"
+                                value="public"
+                                name="default-radio"
+                                checked={idType === "public"}
+                                onClick={(e) => handleChange(e)}
+                                class="w-4 h-4 text-blue-600 cursor-pointer bg-gray-100 border-gray-300"
+                              />
+                              <label
+                                for="default-radio-2"
+                                class="ms-2 text-sm font-medium text-white cursor-pointer dark:text-black"
+                              >
+                                public
+                              </label>
+                            </div>
+                            <div class="flex items-center">
+                              <input
+                                id="default-radio-1"
+                                type="radio"
+                                value="private"
+                                name="default-radio"
+                                checked={idType === "private"}
+                                class="w-4 h-4 text-blue-600 cursor-pointer bg-gray-100 border-gray-300"
+                                onClick={(e) => handleChange(e)}
+                              />
+                              <label
+                                for="default-radio-1"
+                                class="ms-2 text-sm font-medium text-white cursor-pointer dark:text-black"
+                              >
+                                private
+                              </label>
+                            </div>
+                          </div>
                         </div>
                         <SheetFooter>
                           <SheetClose asChild>
@@ -511,13 +548,13 @@ const Profile = () => {
                                       preload="metadata"
                                     >
                                       <source
-                                        src={`http://localhost:8747/${onePost.contentUrl}`}
+                                        src={`${HOST}${onePost.contentUrl}`}
                                         type="video/mp4"
                                       />
                                     </video>
                                   ) : (
                                     <img
-                                      src={`http://localhost:8747/${onePost.contentUrl}`}
+                                      src={`${HOST}${onePost.contentUrl}`}
                                       alt=""
                                       className="object-fill w-full h-auto md:h-auto"
                                     />
@@ -554,13 +591,13 @@ const Profile = () => {
                                           loop
                                         >
                                           <source
-                                            src={`http://localhost:8747/${onePost.contentUrl}`}
+                                            src={`${HOST}${onePost.contentUrl}`}
                                             type="video/mp4"
                                           />
                                         </video>
                                       ) : (
                                         <img
-                                          src={`http://localhost:8747/${onePost.contentUrl}`}
+                                          src={`${HOST}${onePost.contentUrl}`}
                                           alt=""
                                           className="w-full"
                                         />

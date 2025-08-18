@@ -7,6 +7,7 @@ import { FaTrash } from "react-icons/fa";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import {
+  HOST,
   POST_DATA,
   POSTS_UPLOAD_ROUTE,
   REMOVE_POST_IMAGE_ROUTE,
@@ -47,7 +48,7 @@ const AddPost = () => {
           id: response.data.post.id,
           postType:response.data.post.postType, 
         });
-        setPost(`http://localhost:8747/${response.data.post.contentUrl}`);
+        setPost(`${HOST}${response.data.post.contentUrl}`);
         toast.success("Post upload successfully.");
       }
     }

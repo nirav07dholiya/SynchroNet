@@ -80,16 +80,13 @@ const Search = () => {
                             ) : (
                                 <ScrollArea className="w-full h-full px-9 flex flex-col items-center justify-center gap-1">
                                     {searchedTerm.map((data) => {
-                                        let image;
-                                        if (data.DP) image = `http://localhost:8747/${data.DP}`;
-                                        else image = Default;
                                         return (
                                             <div className="w-full h-16 bg-white rounded-lg dark:bg-black">
                                                 <div className="w-full h-full bg-black/90 dark:bg-gray-100/90 my-3 flex items-center justify-start gap-4 cursor-pointer text-white/70 dark:text-black/70 hover:bg-black/80 px-4" onClick={()=>clickOnId(data)}>
                                                     <div className="w-[13%] h-full flex items-center justify-center">
                                                         <Avatar className="md:w-11 md:h-11 w-8 h-8">
                                                             <AvatarImage
-                                                                src={image}
+                                                                src={data.DP ? `${HOST}${data.DP}` : Default}
                                                                 alt="profile"
                                                                 className="object-cover w-full h-full bg-black"
                                                             />

@@ -6,10 +6,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
 import { AiOutlineSave } from "react-icons/ai";
 import { TbLogout2 } from "react-icons/tb";
-import { LOGOUT_ROUTE } from "@/utils/constant";
+import { HOST, LOGOUT_ROUTE } from "@/utils/constant";
 import { apiClient } from "@/lib/api-client";
 import { PiFileVideo } from "react-icons/pi";
 import useAppStore from "@/store";
+import Default from "../assets/images/default-user.png"
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -87,7 +88,7 @@ const Navbar = () => {
               {userInfo.DP ? (
                 <div className="w-[27px] h-[27px] border-white dark:border-black border-2 rounded-full flex items-center justify-center">
                   <img
-                    src={`http://localhost:8747/${userInfo.DP}`}
+                    src={userInfo.DP ? `${HOST}${userInfo.DP}` : Default}
                     alt=""
                     className="rounded-full h-[21px] w-[21px]"
                   />

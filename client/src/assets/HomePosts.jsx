@@ -11,12 +11,13 @@ import { GET_USER_INFO, GET_USER_INFO_POST_ROUTE, SAVE_POST_ROUTE, UNSAVE_POST_R
 import { apiClient } from "@/lib/api-client";
 import Like from "./Like";
 import { useNavigate } from "react-router-dom";
+import {HOST} from "@/utils/constant";
 
 const HomePosts = (props) => {
 
     const socket = useMemo(
         () =>
-            io("ws://localhost:8747", {
+            io(HOST, {
                 transports: ["websocket", "polling", "flashsocket"],
                 withCredentials: true,
             }),
@@ -128,7 +129,7 @@ const HomePosts = (props) => {
                     {/* DP  */}
                     <div className="w-11 h-full flex items-center justify-center cursor-pointer" onClick={() => clickOnId(props.onePost.user)}>
                         <img
-                            src={`http://localhost:8747/${props.onePost.user.DP}`}
+                            src={props.onePost.user.DP ? `${HOST}${props.onePost.user.DP}` : DefaultImage}
                             alt={DefaultImage}
                             className="rounded-full w-[40px] h-[40px]"
                         />
@@ -154,13 +155,13 @@ const HomePosts = (props) => {
                         <video preload="metadata" className="w-full object-cover max-w-[80%]" autoPlay
                             loop muted >
                             <source
-                                src={`http://localhost:8747/${props.onePost.contentUrl}`}
+                                src={`${HOST}${props.onePost.contentUrl}`}
                                 type="video/mp4"
                             />
                         </video>
                     ) : (
                         <img
-                            src={`http://localhost:8747/${props.onePost.contentUrl}`}
+                            src={`${HOST}${props.onePost.contentUrl}`}
                             preload="metadata"
                             className="max-w-[90%]"
                         />

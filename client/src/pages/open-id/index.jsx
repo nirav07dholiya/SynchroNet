@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "@/assets/Header";
 import Navbar from "@/assets/Navbar";
 import useAppStore from "@/store";
@@ -20,6 +20,7 @@ import {
   GET_ONE_POST_ROUTE,
   GET_POST_ROUTE,
   GET_USER_INFO,
+  HOST,
   SAVE_POST_ROUTE,
   UNSAVE_POST_ROUTE,
 } from "@/utils/constant";
@@ -71,13 +72,13 @@ const PostArea = ({
                           className="w-full object-cover"
                         >
                           <source
-                            src={`http://localhost:8747/${onePost.contentUrl}`}
+                            src={`${HOST}${onePost.contentUrl}`}
                             type="video/mp4"
                           />
                         </video>
                       ) : (
                         <img
-                          src={`http://localhost:8747/${onePost.contentUrl}`}
+                          src={`${HOST}${onePost.contentUrl}`}
                           alt=""
                           className="w-full object-cover h-auto"
                           preload="metadata"
@@ -90,7 +91,7 @@ const PostArea = ({
                           <div className="w-[15%] h-full flex items-center justify-center">
                             <Avatar className="w-7 h-7 ">
                               <AvatarImage
-                                src={`http://localhost:8747/${openIdData.DP}`}
+                                src={openIdData.DP ? `${HOST}${openIdData.DP}` : Default}
                                 alt="profile"
                                 className=" w-full h-full bg-black"
                               />
@@ -110,13 +111,13 @@ const PostArea = ({
                                 className="w-full object-cover"
                               >
                                 <source
-                                  src={`http://localhost:8747/${onePost.contentUrl}`}
+                                  src={`${HOST}${onePost.contentUrl}`}
                                   type="video/mp4"
                                 />
                               </video>
                             ) : (
                               <img
-                                src={`http://localhost:8747/${onePost.contentUrl}`}
+                                src={`${HOST}${onePost.contentUrl}`}
                                 alt=""
                                 className="w-full object-cover h-auto"
                               />
@@ -376,19 +377,11 @@ const OpenId = () => {
                 {/* DP */}
                 <div className="w-[25%] h-[15vh] lg:h-[20vh] relative flex items-center justify-center rounded-full">
                   <Avatar className=" h-[90px] w-[90px] lg:h-[110px] lg:w-[110px]">
-                    {openIdData.DP ? (
                       <AvatarImage
-                        src={`http://localhost:8747/${openIdData.DP}`}
+                        src={openIdData.DP ? `${HOST}${openIdData.DP}` : Default}
                         alt="profile"
                         className="object-cover w-full h-full bg-black"
                       />
-                    ) : (
-                      <AvatarImage
-                        src={Default}
-                        alt="profile"
-                        className="object-cover w-full h-full bg-black"
-                      />
-                    )}
                   </Avatar>
                 </div>
 
@@ -434,7 +427,7 @@ const OpenId = () => {
                     }}>
                       requested
                     </button>
-                  ) : (
+                  ) : openIdData._id !== userInfo._id && (
                     <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold px-2 border border-blue-700 rounded mb-1 lg:mb-5 w-full h-7" onClick={() => {
                       follow()
                     }}>

@@ -12,6 +12,8 @@ import { CONNECTION_CONFIRM_REQUEST, CONNECTION_DELETE_REQUEST, CONNECTION_FIND_
 import useAppStore from "@/store";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Switch } from "@/components/ui/switch"
+import Default from "../assets/images/default-user.png"
+import { HOST } from "@/utils/constant";
 
 const Header = ({ onClick }) => {
   const { userInfo,darkMode,setDarkMode } = useAppStore();
@@ -88,7 +90,7 @@ const Header = ({ onClick }) => {
                           {/* DP  */}
                           <div className="w-[35px] h-[35px] flex items-center justify-center">
                             <img
-                              src={`http://localhost:8747/${data.DP}`}
+                              src={data.DP ?`${HOST}${data.DP}` : Default}
                               preload="metadata"
                               className=" rounded-full w-8 h-8"
                             />

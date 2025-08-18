@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import ReactPlayer from "react-player";
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
+import { HOST } from '@/utils/constant';
 
 const NetClip = ({contentUrl}) => {
     const { ref, inView } = useInView({ threshold: 0.7 });
@@ -14,7 +15,7 @@ const NetClip = ({contentUrl}) => {
       exit={{ opacity: 0.7 }}
     >
       <ReactPlayer
-        url={`http://localhost:8747/${contentUrl}`}
+        url={`${HOST}${contentUrl}`}
         playing={inView}
         loop
         controls={false}

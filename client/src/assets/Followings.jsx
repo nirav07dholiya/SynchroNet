@@ -9,6 +9,8 @@ import { apiClient } from "@/lib/api-client";
 import { CONNECTION_FETCH_FOLLOWINGS, CONNECTION_UNFOLLOW } from "@/utils/constant";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import useAppStore from "@/store";
+import Default from "../assets/images/default-user.png"
+
 
 const Followings = ({ userId, followingLength, call,onClick }) => {
 
@@ -69,7 +71,7 @@ const Followings = ({ userId, followingLength, call,onClick }) => {
                                         {/* DP  */}
                                         <div className="w-[35px] h-[35px] flex items-center justify-center">
                                             <img
-                                                src={`http://localhost:8747/${data.DP}`}
+                                                src={data.DP ? `${HOST}${data.DP}` : Default}
                                                 preload="metadata"
                                                 className=" rounded-full w-8 h-8"
                                             />

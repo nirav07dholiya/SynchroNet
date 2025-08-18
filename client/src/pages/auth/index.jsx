@@ -15,7 +15,6 @@ const Auth = () => {
     const navigate = useNavigate();
     const { setUserInfo } = useAppStore();
     const [email, setEmail] = useState("");
-    const [idType, setIdType] = useState("public");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -97,9 +96,7 @@ const Auth = () => {
         
     };
 
-    const handleChange=(e)=>{
-        setIdType(e.target.value)
-    }
+    
 
     return (
         <>
@@ -179,44 +176,7 @@ const Auth = () => {
                                         className="rounded-xl p-5 border-gray-300"
                                         onChange={(e) => setConfirmPassword(e.target.value)}
                                     />
-                                    <div className="flex gap-4 ">
-
-                                        
-                                        <div class="flex items-center">
-                                            <input
-                                                checked
-                                                id="default-radio-2"
-                                                type="radio"
-                                                value="public"
-                                                name="default-radio"
-                                                onClick={(e)=>handleChange(e)}
-                                                class="w-4 h-4 text-blue-600 cursor-pointer bg-gray-100 border-gray-300"
-                                            />
-                                            <label
-                                                for="default-radio-2"
-                                                class="ms-2 text-sm font-medium text-white cursor-pointer dark:text-black"
-                                            >
-                                                public
-                                            </label>
-                                        </div>
-                                        <div class="flex items-center">
-                                            <input
-                                                id="default-radio-1"
-                                                type="radio"
-                                                value="private"
-                                                name="default-radio"
-                                                class="w-4 h-4 text-blue-600 cursor-pointer bg-gray-100 border-gray-300"
-                                                onClick={(e)=>handleChange(e)}
-                                            
-                                            />
-                                            <label
-                                                for="default-radio-1"
-                                                class="ms-2 text-sm font-medium text-white cursor-pointer dark:text-black"
-                                            >
-                                                private
-                                            </label>
-                                        </div>
-                                    </div>
+                                    
                                     <Button
                                         className="rounded-xl p-6 text-white bg-purple-500 hover:bg-purple-700"
                                         onClick={handleSignUp}

@@ -7,14 +7,15 @@ import useAppStore from '@/store';
 import Comment from './Comment';
 import { io } from 'socket.io-client';
 import { apiClient } from '@/lib/api-client';
-import { SAVE_POST_ROUTE, UNSAVE_POST_ROUTE } from '@/utils/constant';
+import { HOST, SAVE_POST_ROUTE, UNSAVE_POST_ROUTE } from '@/utils/constant';
 import { toast } from 'sonner';
+import Default from "../assets/images/default-user.png"
 
 const NetClipFooter = ({ userData, video }) => {
 
     const socket = useMemo(
         () =>
-            io("ws://localhost:8747", {
+            io(HOST, {
                 transports: ["websocket", "polling", "flashsocket"],
                 withCredentials: true,
             }),
@@ -108,7 +109,7 @@ const NetClipFooter = ({ userData, video }) => {
             <div className="w-[90%] h-[50%] ">
                 <div className="w-full h-[40%] flex items-center justify-start">
                     <div className="w-[60px] h-full flex items-center justify-center">
-                        <img src={`http://localhost:8747/${userData.DP}`} alt="" className='rounded-full h-[70%] w-[67%]' />
+                        <img src={userData.DP ? `${HOST}${userData.DP}` : Default} alt="" className='rounded-full h-[70%] w-[67%]' />
                     </div>
                     <div className="w-auto h-full ">
                         <div className="w-auto h-full flex flex-col items-start justify-center">

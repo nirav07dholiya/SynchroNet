@@ -16,11 +16,12 @@ import { io } from "socket.io-client";
 import Default from "../assets/images/default-user.png"
 import { useNavigate } from "react-router-dom";
 import { MessageCircle } from "lucide-react";
+import {HOST} from "@/utils/constant";
 
 const Comment = (props) => {
   const socket = useMemo(
     () =>
-      io("ws://localhost:8747", {
+      io(HOST, {
         transports: ["websocket", "polling", "flashsocket"],
         withCredentials: true,
       }),
@@ -88,7 +89,7 @@ const Comment = (props) => {
                   <div className=" w-9 h-9 rounded-full">
                     {
                       data.userId.DP ? <img
-                        src={`http://localhost:8747/${data.userId.DP}`}
+                        src={data.userId.DP ? `${HOST}${data.userId.DP}` : Default}
                         alt=""
                         className="w-full h-full object-cover rounded-full"
                         preload="metadata"

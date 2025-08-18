@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Button } from "@/components/ui/button";
+import DefaultImage from "./images/default-user.png";
 import {
     Popover,
     PopoverContent,
@@ -67,7 +68,7 @@ const Followers = ({ userId, followersLength, call, onClick }) => {
                                         {/* DP  */}
                                         <div className="w-[35px] h-[35px] flex items-center justify-center">
                                             <img
-                                                src={`http://localhost:8747/${data.DP}`}
+                                                src={data.DP ? `${HOST}${data.DP}` : DefaultImage}
                                                 preload="metadata"
                                                 className=" rounded-full w-8 h-8"
                                             />

@@ -26,11 +26,12 @@ import { FcLike } from "react-icons/fc";
 import Like from "@/assets/Like";
 import Comment from "@/assets/Comment";
 import { useNavigate } from "react-router-dom";
+import {HOST} from "@/utils/constant";
 
 const Saved = () => {
   const socket = useMemo(
     () =>
-      io("ws://localhost:8747", {
+      io(HOST, {
         transports: ["websocket", "polling", "flashsocket"],
         withCredentials: true,
       }),
@@ -178,13 +179,13 @@ const Saved = () => {
                                     onClick={() => getInfo(onePost.userId)}
                                   >
                                     <source
-                                      src={`http://localhost:8747/${onePost.contentUrl}`}
+                                      src={`${HOST}${onePost.contentUrl}`}
                                       type="video/mp4"
                                     />
                                   </video>
                                 ) : (
                                   <img
-                                    src={`http://localhost:8747/${onePost.contentUrl}`}
+                                    src={`${HOST}${onePost.contentUrl}`}
                                     alt=""
                                     className="w-full object-cover h-auto"
                                     onClick={() => getInfo(onePost.userId)}
@@ -199,7 +200,7 @@ const Saved = () => {
                                         <AvatarImage
                                           src={
                                             user.DP
-                                              ? `http://localhost:8747/${user.DP}`
+                                              ? `${HOST}${user.DP}`
                                               : Default
                                           }
                                           alt="profile"
@@ -223,13 +224,13 @@ const Saved = () => {
                                         preload="metadata"
                                       >
                                         <source
-                                          src={`http://localhost:8747/${onePost.contentUrl}`}
+                                          src={`${HOST}${onePost.contentUrl}`}
                                           type="video/mp4"
                                         />
                                       </video>
                                     ) : (
                                       <img
-                                        src={`http://localhost:8747/${onePost.contentUrl}`}
+                                        src={`${HOST}${onePost.contentUrl}`}
                                         alt=""
                                         className="w-full"
                                         preload="metadata"
