@@ -75,7 +75,7 @@ const Auth = () => {
             try {
                 const response = await apiClient.post(
                     SIGN_UP_ROUTE,
-                    { email, password, idType },
+                    { email, password },
                     { withCredentials: true }
                 );
 
