@@ -27,6 +27,7 @@ app.use(
   })
 );
 
+app.use('/uploads', express.static('uploads'));
 app.use("/uploads/profiles", express.static("uploads/profiles"));
 app.use("/uploads/posts", express.static("uploads/posts"));
 
